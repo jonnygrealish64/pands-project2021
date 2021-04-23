@@ -1,5 +1,5 @@
-# This program involves the Fisher's Iris data set and outputs:
-# 1. Summary of each variable to a single text file.
+# This program involves the Fisher's Iris data set and outputs the following:
+# 1. Summary of each variable to a txt file.
 # 2. Histogram of each variable to png files.
 # 3. Scatter plot of each pair of variables to png files.
 # Author: Jonathon Grealish
@@ -15,31 +15,34 @@ import matplotlib.pyplot as plt # histogram tool
 import seaborn # scatter plot tool
 import csv # csv tool
 
-data = pd.read_csv("IRIS.csv") # this imports all data stored in the csv file
+data = pd.read_csv("IRIS.csv") # this imports all data stored in the csv file.
 
+# 1. Summary of each variable to a txt file:
+# To convert csv to txt:
 # Open text file with "w" (write), creating the file.
-file = open("summary.txt", "w")
 # Open csv file to read, using "with" as.
+# Manipulate all values in the file.write() using a for loop to iterate through each row of data.
+# Format all integers in data to strings, with spacing in between each column of values.
+# Close the file after writing to it.
+file = open("summary.txt", "w")
 with open("IRIS.csv") as csvFile:
     readCsv = csv.reader(csvFile)
     for row in readCsv:
-        # Manipulate all values in the file.write() using a for loop to iterate through each row of data.
         Id = row[0]
         Id1 = row[1]
         Id2 = row[2]
         Id3 = row[3]
         Id4 = row[4]
-        # Format all integers in data to strings, with spacing in between each column of values.
         file.write(str(Id4) + "  " + str(Id3) + "  " + str(Id2) + "  " + str(Id1) + "  " + str(Id) + "  " + "\n")
-# Close the file after writing to it.
 file.close()
 
+# 2. Histogram of each variable to png files:
 # For each histogram below:
-# plt.figure(figsize = (x,y)) sets up the histogram's size.
+# plt.figure(figsize = (10,7)) sets up the histogram's size.
 # The variable x contains data related to an attribute from the csv file.
 # plt.hist uses the data, bins (which divide the entire range into intervals) and colour.
 # Titles for the histogram and axes are then added.
-# The histogram is then saved using plt.savefig to a png file.
+# The histogram is then saved using plt.savefig() to a png file.
 
 # Histogram for Sepal Length:
 plt.figure(figsize = (10, 7))
@@ -85,17 +88,18 @@ plt.ylabel("Count")
 
 plt.savefig("IrisPetalWidth.png")
 
+# 3. Scatter plot of each pair of variables to png files:
 # For each scatter plot below:
 # Titles of the pair of attributes are established on the axes.
-# The pair of attributes are plotted from the csv file.
-# The scatter plot is then saved using plt.savefig to a png file.
+# The attributes are plotted via data.plot(kind, x, y, c), using attribute values from the csv file.
+# The scatter plot is then saved using plt.savefig() to a png file.
 
 # Scatter Plot for Sepal Length & Sepal Width:
 plt.title("Sepal Length & Width Plot")
 plt.xlabel("Sepal_Length")
 plt.ylabel("Sepal_Width")
 
-data.plot(kind = "scatter", x = ["sepal_length"], y = ["sepal_width"], color = ["purple"])
+data.plot(kind = "scatter", x = ["sepal_length"], y = ["sepal_width"], color = "purple")
 plt.savefig("IrisSepals.png")
 
 # Scatter Plot for Petal Length & Petal Width:
@@ -103,5 +107,5 @@ plt.title("Petal Length & Width Plot")
 plt.xlabel("Petal_Length")
 plt.ylabel("Petal_Width")
 
-data.plot(kind = "scatter", x = ["petal_length"], y = ["petal_width"], color = ["purple"])
+data.plot(kind = "scatter", x = ["petal_length"], y = ["petal_width"], color = "yellow")
 plt.savefig("IrisPetals.png")
