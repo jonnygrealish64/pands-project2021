@@ -6,29 +6,30 @@
 # Reference Material:
 # https://www.geeksforgeeks.org/box-plot-and-histogram-exploration-on-iris-data/
 # https://stackoverflow.com/questions/43801152/read-output-of-a-csv-file-and-write-it-to-a-text-file-using-python
-# https://stackoverflow.com/questions/49137535/converting-csv-to-txt-tab-delimited-and-iterate-over-files-in-directory-python
+# https://www.geeksforgeeks.org/plotting-graph-for-iris-dataset-using-seaborn-and-matplotlib/
 # https://stackoverflow.com/questions/9622163/save-plot-to-image-file-instead-of-displaying-it-using-matplotlib
 
 import numpy as np # arrays tool
 import pandas as pd # data analysis tool
-import matplotlib.pyplot as plt # histogram and scatter plot tool
-import csv
+import matplotlib.pyplot as plt # histogram tool
+import seaborn # scatter plot tool
+import csv # csv tool
 
 data = pd.read_csv("IRIS.csv") # this imports all data stored in the csv file
 
-# Open file with "w" (write), the file will create automatically.
+# Open text file with "w" (write), creating the file.
 file = open("summary.txt", "w")
-# Open csv file to read, using "with".
+# Open csv file to read, using "with" as.
 with open("IRIS.csv") as csvFile:
     readCsv = csv.reader(csvFile)
     for row in readCsv:
-        # Manipulate all values in the file.write() using for loop to iterate through each row of data
+        # Manipulate all values in the file.write() using a for loop to iterate through each row of data.
         Id = row[0]
         Id1 = row[1]
         Id2 = row[2]
         Id3 = row[3]
         Id4 = row[4]
-        # Format integers in data to strings.
+        # Format all integers in data to strings, with spacing in between each column of values.
         file.write(str(Id4) + "  " + str(Id3) + "  " + str(Id2) + "  " + str(Id1) + "  " + str(Id) + "  " + "\n")
 # Close the file after writing to it.
 file.close()
@@ -85,24 +86,22 @@ plt.ylabel("Count")
 plt.savefig("IrisPetalWidth.png")
 
 # For each scatter plot below:
-# plt.figure(figsize = (x,y)) sets up the scatter plot's size.
-# The variables x and y contains data related to attributes from the csv file.
-# plt.scatter uses the data from the pair of variables and adds colour.
-# Titles for the scatter plot and axes are then added.
+# Titles of the pair of attributes are established on the axes.
+# The pair of attributes are plotted from the csv file.
 # The scatter plot is then saved using plt.savefig to a png file.
 
 # Scatter Plot for Sepal Length & Sepal Width:
-plt.scatter(x = "sepal_length", y = "sepal_width", color = "purple")
 plt.title("Sepal Length & Width Plot")
 plt.xlabel("Sepal_Length")
 plt.ylabel("Sepal_Width")
 
+data.plot(kind = "scatter", x = ["sepal_length"], y = ["sepal_width"], color = ["purple"])
 plt.savefig("IrisSepals.png")
 
 # Scatter Plot for Petal Length & Petal Width:
-plt.scatter(x = "petal_length", y = "petal_width", color = "purple")
 plt.title("Petal Length & Width Plot")
 plt.xlabel("Petal_Length")
 plt.ylabel("Petal_Width")
 
+data.plot(kind = "scatter", x = ["petal_length"], y = ["petal_width"], color = ["purple"])
 plt.savefig("IrisPetals.png")
