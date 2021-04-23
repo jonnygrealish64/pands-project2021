@@ -5,13 +5,33 @@
 # Author: Jonathon Grealish
 # Reference Material:
 # https://www.geeksforgeeks.org/box-plot-and-histogram-exploration-on-iris-data/
+# https://stackoverflow.com/questions/43801152/read-output-of-a-csv-file-and-write-it-to-a-text-file-using-python
+# https://stackoverflow.com/questions/49137535/converting-csv-to-txt-tab-delimited-and-iterate-over-files-in-directory-python
 # https://stackoverflow.com/questions/9622163/save-plot-to-image-file-instead-of-displaying-it-using-matplotlib
 
 import numpy as np # arrays tool
 import pandas as pd # data analysis tool
 import matplotlib.pyplot as plt # histogram and scatter plot tool
+import csv
 
 data = pd.read_csv("IRIS.csv") # this imports all data stored in the csv file
+
+# Open file with "w" (write), the file will create automatically.
+file = open("summary.txt", "w")
+# Open csv file to read, using "with".
+with open("IRIS.csv") as csvFile:
+    readCsv = csv.reader(csvFile)
+    for row in readCsv:
+        # Manipulate all values in the file.write() using for loop to iterate through each row of data
+        Id = row[0]
+        Id1 = row[1]
+        Id2 = row[2]
+        Id3 = row[3]
+        Id4 = row[4]
+        # Format integers in data to strings.
+        file.write(str(Id4) + "  " + str(Id3) + "  " + str(Id2) + "  " + str(Id1) + "  " + str(Id) + "  " + "\n")
+# Close the file after writing to it.
+file.close()
 
 # For each histogram below:
 # plt.figure(figsize = (x,y)) sets up the histogram's size.
